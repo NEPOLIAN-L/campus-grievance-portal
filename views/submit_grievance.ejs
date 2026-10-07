@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<h1><i class="fa fa-pencil-square-o"></i> Submit a Grievance</h1>
+<div class="card" style="max-width:600px;">
+  <form method="POST" action="/grievance/new" enctype="multipart/form-data">
+    <label>Category</label>
+    <select name="category" required>
+      <option value="" disabled selected>Select a category</option>
+      <% categories.forEach(c => { %>
+        <option value="<%= c %>"><%= c %></option>
+      <% }) %>
+    </select>
+
+    <label>Description</label>
+    <textarea name="description" placeholder="Describe the issue in detail..." required></textarea>
+
+    <label>Attachment (optional, max 5 MB)</label>
+    <input type="file" name="attachment" />
+
+    <button class="btn" type="submit">Submit Grievance</button>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

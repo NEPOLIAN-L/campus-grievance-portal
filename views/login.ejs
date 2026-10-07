@@ -1,0 +1,16 @@
+<%- include("partials/header") %>
+
+<div class="auth-container">
+  <h2><i class="fa fa-lock"></i> Student / Admin Login</h2>
+  <form method="POST" action="/login">
+    <label>Email</label>
+    <input type="email" name="email" required autofocus />
+    <label>Password</label>
+    <input type="password" name="password" required />
+    <button class="btn" type="submit">Login</button>
+  </form>
+  <p class="muted" style="margin-top:1rem;">New student? <a href="/register">Create an account</a></p>
+  <p class="muted">Default admin (seeded): admin@college.edu / admin123</p>
+</div>
+
+<%- include("partials/footer") %>

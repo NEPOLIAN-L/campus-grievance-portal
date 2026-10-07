@@ -1,0 +1,16 @@
+{
+  "name": "campus-grievance-portal",
+  "version": "1.0.0",
+  "description": "A web-based Campus Grievance Portal for students to submit, track and resolve grievances, with an admin dashboard for assignment, resolution and reporting.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^2.0.1"
+  }
+}

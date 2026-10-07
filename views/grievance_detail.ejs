@@ -1,0 +1,58 @@
+<%- include("partials/header") %>
+
+<h1><%= g.trackingCode %> <span class="badge <%= g.status.replace(' ', '-') %>"><%= g.status %></span></h1>
+
+<div class="card">
+  <p><strong>Category:</strong> <%= g.category %></p>
+  <p><strong>Submitted by:</strong> <%= student.name %> (<%= student.identifier || student.email %>)</p>
+  <p><strong>Submitted on:</strong> <%= new Date(g.createdAt).toLocaleString() %></p>
+  <p><strong>Last updated:</strong> <%= new Date(g.updatedAt).toLocaleString() %></p>
+  <p><strong>Description:</strong><br /><%= g.description %></p>
+  <% if (g.attachment) { %>
+    <p><strong>Attachment:</strong> <a href="/uploads/<%= g.attachment %>" target="_blank">View file</a></p>
+  <% } %>
+</div>
+
+<div class="card">
+  <h3>Status History &amp; Remarks</h3>
+  <% if (g.remarks.length === 0) { %>
+    <p class="muted">No remarks yet.</p>
+  <% } %>
+  <% g.remarks.slice().reverse().forEach(r => { %>
+    <div class="remark">
+      <%= r.text %>
+      <div class="meta"><%= r.by %> &middot; <%= new Date(r.date).toLocaleString() %></div>
+    </div>
+  <% }) %>
+</div>
+
+<% if (currentUser.role === "admin") { %>
+  <div class="card">
+    <h3>Update Grievance</h3>
+    <form method="POST" action="/grievance/<%= g.id %>/update">
+      <label>Status</label>
+      <select name="status">
+        <% statuses.forEach(s => { %>
+          <option value="<%= s %>" <%= g.status === s ? "selected" : "" %>><%= s %></option>
+        <% }) %>
+      </select>
+
+      <label>Assign To</label>
+      <select name="assignedTo">
+        <option value="">-- Unassigned --</option>
+        <% admins.forEach(a => { %>
+          <option value="<%= a.id %>" <%= g.assignedTo === a.id ? "selected" : "" %>><%= a.name %> (<%= a.department || "General" %>)</option>
+        <% }) %>
+      </select>
+
+      <label>Add Remark</label>
+      <textarea name="remark" placeholder="Add a note visible in the status history..."></textarea>
+
+      <button class="btn" type="submit">Save Update</button>
+    </form>
+  </div>
+<% } %>
+
+<a href="<%= currentUser.role === 'admin' ? '/admin' : '/dashboard' %>">&larr; Back</a>
+
+<%- include("partials/footer") %>

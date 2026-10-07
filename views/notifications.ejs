@@ -1,0 +1,18 @@
+<%- include("partials/header") %>
+
+<h1><i class="fa fa-bell-o"></i> Notifications</h1>
+
+<% if (notifications.length === 0) { %>
+  <div class="card empty-state">No notifications yet.</div>
+<% } else { %>
+  <div class="card">
+    <% notifications.forEach(n => { %>
+      <div class="remark">
+        <%= n.message %>
+        <div class="meta"><%= new Date(n.date).toLocaleString() %></div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,44 @@
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <div class="container-fluid">
+      <div class="pull-right hidden-xs">Version <strong>1.0.0</strong></div>
+      <strong>Copyright &copy; <%= new Date().getFullYear() %> Campus Grievance Portal.</strong> All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    // live clock (same as the CMS navbar)
+    function tick() {
+      var d = new Date();
+      var t = document.getElementById("clock-time"), dt = document.getElementById("clock-date");
+      if (t) t.textContent = d.toLocaleTimeString();
+      if (dt) dt.textContent = d.toLocaleDateString();
+    }
+    tick(); setInterval(tick, 1000);
+
+    // mobile menu toggle
+    var btn = document.getElementById("toggleMenuBtn");
+    var menu = document.getElementById("navbar-collapse");
+    btn.addEventListener("click", function () { menu.classList.toggle("in"); });
+
+    // dropdowns
+    document.querySelectorAll(".dropdown-toggle").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var li = a.parentElement, open = li.classList.contains("open");
+        document.querySelectorAll(".dropdown.open").forEach(function (o) { o.classList.remove("open"); });
+        if (!open) li.classList.add("open");
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener("click", function () {
+      document.querySelectorAll(".dropdown.open").forEach(function (o) { o.classList.remove("open"); });
+    });
+  })();
+</script>
+</body>
+</html>

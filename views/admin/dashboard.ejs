@@ -1,0 +1,56 @@
+<%- include("../partials/header") %>
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+  <h1 style="margin:0;">Admin Dashboard</h1>
+  <a class="btn secondary" style="margin-top:0;" href="/admin/reports"><i class="fa fa-bar-chart"></i> View Reports</a>
+</div>
+
+<div class="card filters">
+  <form method="GET" action="/admin">
+    <div>
+      <label>Status</label>
+      <select name="status">
+        <option value="">All</option>
+        <% statuses.forEach(s => { %>
+          <option value="<%= s %>" <%= filters.status === s ? "selected" : "" %>><%= s %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label>Category</label>
+      <select name="category">
+        <option value="">All</option>
+        <% categories.forEach(c => { %>
+          <option value="<%= c %>" <%= filters.category === c ? "selected" : "" %>><%= c %></option>
+        <% }) %>
+      </select>
+    </div>
+    <button class="btn small" type="submit">Filter</button>
+    <a class="btn small secondary" href="/admin">Reset</a>
+  </form>
+</div>
+
+<% if (grievances.length === 0) { %>
+  <div class="card empty-state">No grievances match these filters.</div>
+<% } else { %>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Tracking Code</th><th>Category</th><th>Status</th><th>Submitted</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% grievances.forEach(g => { %>
+          <tr>
+            <td><%= g.trackingCode %></td>
+            <td><%= g.category %></td>
+            <td><span class="badge <%= g.status.replace(' ', '-') %>"><%= g.status %></span></td>
+            <td><%= new Date(g.createdAt).toLocaleDateString() %></td>
+            <td><a href="/grievance/<%= g.id %>">Review &rarr;</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include("../partials/footer") %>

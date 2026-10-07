@@ -1,0 +1,21 @@
+<%- include("partials/header") %>
+
+<div class="auth-container">
+  <h2><i class="fa fa-user-plus"></i> Student Registration</h2>
+  <form method="POST" action="/register">
+    <label>Full Name</label>
+    <input type="text" name="name" required />
+    <label>Register Number</label>
+    <input type="text" name="identifier" placeholder="e.g. 2023IT045" required />
+    <label>Email</label>
+    <input type="email" name="email" required />
+    <label>Password</label>
+    <input type="password" name="password" required minlength="6" />
+    <label>Confirm Password</label>
+    <input type="password" name="confirmPassword" required minlength="6" />
+    <button class="btn" type="submit">Create Account</button>
+  </form>
+  <p class="muted" style="margin-top:1rem;">Already have an account? <a href="/login">Login</a></p>
+</div>
+
+<%- include("partials/footer") %>

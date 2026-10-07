@@ -1,0 +1,34 @@
+<%- include("partials/header") %>
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+  <h1 style="margin:0;">My Grievances</h1>
+  <a class="btn" style="margin-top:0;" href="/grievance/new"><i class="fa fa-plus"></i> Submit New Grievance</a>
+</div>
+
+<% if (grievances.length === 0) { %>
+  <div class="card empty-state">
+    You haven't submitted any grievances yet.<br />
+    <a href="/grievance/new">Submit your first grievance</a>
+  </div>
+<% } else { %>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Tracking Code</th><th>Category</th><th>Status</th><th>Submitted</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% grievances.forEach(g => { %>
+          <tr>
+            <td><%= g.trackingCode %></td>
+            <td><%= g.category %></td>
+            <td><span class="badge <%= g.status.replace(' ', '-') %>"><%= g.status %></span></td>
+            <td><%= new Date(g.createdAt).toLocaleDateString() %></td>
+            <td><a href="/grievance/<%= g.id %>">View &rarr;</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include("partials/footer") %>
